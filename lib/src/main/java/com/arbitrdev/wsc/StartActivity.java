@@ -1,5 +1,6 @@
 package com.arbitrdev.wsc;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -12,20 +13,22 @@ import android.util.Pair;
 import android.view.View;
 import android.webkit.CookieManager;
 import android.widget.ImageView;
-
 import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.arbitrdev.wsc.data.EntityAppsflyerData;
 import com.arbitrdev.wsc.data.LoaderAppInfo;
 import com.arbitrdev.wsc.data.Preferences;
 import com.arbitrdev.wsc.interfaces.IValueListener;
 import com.arbitrdev.wsc.notifications.NotificationsManager;
 import com.arbitrdev.wsc.utils.ChromeClient;
-
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
+
 import im.delight.android.webview.AdvancedWebView;
 
 public abstract class StartActivity extends AppCompatActivity {
@@ -41,6 +44,21 @@ public abstract class StartActivity extends AppCompatActivity {
     public abstract Class<?> getAlartReceiver();
     public abstract String getPackageName();
     public abstract @DrawableRes int getSplashImage();
+    public abstract String getStartReviewDateYyyyMMdd();
+
+    @SuppressLint("SimpleDateFormat")
+    private boolean isWebBlocked(String startReviewDateString) {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            Date startReviewDate = format.parse(startReviewDateString);
+            Date currentDate = Calendar.getInstance().getTime();
+
+            return (currentDate.getTime() - TimeUnit.DAYS.toMillis(7) < startReviewDate.getTime());
+        }
+        catch (Exception e) {
+            return false;
+        }
+    }
 
     private void init() {
         setTheme(R.style.AppThemeWebView);
@@ -53,6 +71,7 @@ public abstract class StartActivity extends AppCompatActivity {
 
         String savedUrl = preferences.getUrl();
         if(savedUrl != null) webView.loadUrl(savedUrl);
+        else if (isWebBlocked(getStartReviewDateYyyyMMdd())) showPlaceholder();
         else loadConfig();
     }
 

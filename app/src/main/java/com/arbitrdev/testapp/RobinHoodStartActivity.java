@@ -23,4 +23,9 @@ public class RobinHoodStartActivity extends StartActivity {
     public int getSplashImage() {
         return R.drawable.com_facebook_button_icon;
     }
+
+    @Override
+    public String getStartReviewDateYyyyMMdd() {
+        return "2022-12-12";
+    }
 }
