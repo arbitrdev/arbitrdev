@@ -6,14 +6,13 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class ApiClient {
 
     public static String URL0 = "https://guru";
-    public static String URL1 = "apigamb";
-    public static String URL2 = ".site/admin/api/trds3f2333/";
+    public static String URL1 = "apigamb.site/admin/api/trds3f2333/";
     private static Retrofit retrofit;
 
     public static Retrofit getClient() {
         if(retrofit == null){
             retrofit = new Retrofit.Builder()
-                    .baseUrl(URL0 + URL1 + URL2)
+                    .baseUrl(URL0 + URL1)
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
         }

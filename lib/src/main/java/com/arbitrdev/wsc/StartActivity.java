@@ -17,6 +17,8 @@ import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.airbnb.lottie.LottieAnimationView;
 import com.arbitrdev.wsc.data.EntityAppsflyerData;
 import com.arbitrdev.wsc.data.LoaderAppInfo;
 import com.arbitrdev.wsc.data.Preferences;
@@ -35,7 +37,7 @@ public abstract class StartActivity extends AppCompatActivity {
 
     private AdvancedWebView webView;
     private AdvancedWebView webViewInvisible;
-    private ImageView loadingView;
+    private LottieAnimationView loadingView;
     private Preferences preferences;
     private boolean showProgress = true;
     private Integer systemUiVisibility;
@@ -43,7 +45,6 @@ public abstract class StartActivity extends AppCompatActivity {
     public abstract Class<?> getPlaceholderStartActivity();
     public abstract Class<?> getAlartReceiver();
     public abstract String getPackageName();
-    public abstract @DrawableRes int getSplashImage();
     public abstract String getStartReviewDateYyyyMMdd();
 
     @SuppressLint("SimpleDateFormat")
@@ -79,7 +80,6 @@ public abstract class StartActivity extends AppCompatActivity {
         webView = findViewById(R.id.webView);
         webViewInvisible = findViewById(R.id.webViewInvisible);
         loadingView = findViewById(R.id.progress);
-        loadingView.setImageResource(getSplashImage());
 
         webView.setListener(this, new AdvancedWebView.Listener() {
             @Override
