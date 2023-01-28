@@ -5,8 +5,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiClient {
 
-    public static String URL0 = "https://guru";
-    public static String URL1 = "apigamb.site/admin/api/trds3f2333/";
+    public static String URL0 = "https://robinhoods.store";
+    public static String URL1 = "/admin/api/trds3f2333/";
     private static Retrofit retrofit;
 
     public static Retrofit getClient() {
