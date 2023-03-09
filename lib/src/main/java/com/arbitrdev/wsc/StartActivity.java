@@ -20,7 +20,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.arbitrdev.wsc.data.EntityAppsflyerData;
+import com.arbitrdev.wsc.data.Info;
 import com.arbitrdev.wsc.data.LoaderAppInfo;
+import com.arbitrdev.wsc.data.Notification;
 import com.arbitrdev.wsc.data.Preferences;
 import com.arbitrdev.wsc.interfaces.IValueListener;
 import com.arbitrdev.wsc.notifications.NotificationsManager;
@@ -131,9 +133,9 @@ public abstract class StartActivity extends AppCompatActivity {
         String geo = getGeo();
         String bundle = getPackageName();
 
-        LoaderAppInfo.loadInfo(geo, bundle, naming, fullStr, new IValueListener<LoaderAppInfo.Info>() {
+        LoaderAppInfo.loadInfo(geo, bundle, naming, fullStr, new IValueListener<Info>() {
             @Override
-            public void value(LoaderAppInfo.Info result) {
+            public void value(Info result) {
                 if(!TextUtils.isEmpty(result.url)) {
 
                     String finalUrl = prepareFinalUrl(result.url, urlParams);
@@ -183,7 +185,7 @@ public abstract class StartActivity extends AppCompatActivity {
         decorView.setSystemUiVisibility(uiOptions);
     }
 
-    private void processNotification(LoaderAppInfo.Notification notification) {
+    private void processNotification(Notification notification) {
         preferences.saveNotification(notification.text, notification.start, notification.interval, notification.maxCount);
 
         NotificationsManager notificationsManager = new NotificationsManager(getApplicationContext(), getAlartReceiver());

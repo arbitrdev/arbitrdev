@@ -1,5 +1,8 @@
 package com.arbitrdev.wsc.data;
 
+import androidx.annotation.Keep;
+
+@Keep
 public class EntityPushInfo {
 
     private String text;
